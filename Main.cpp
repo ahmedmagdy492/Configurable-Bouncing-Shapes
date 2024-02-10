@@ -12,7 +12,7 @@
 
 int main() {
 
-	std::string filePath = "config file.txt";
+	std::string filePath = "config.txt";
 	FileReader fr(filePath);
 	std::vector<std::string> lines = fr.ReadFile();
 

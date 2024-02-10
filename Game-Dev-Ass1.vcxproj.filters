@@ -72,12 +72,4 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="C:\Users\Ahmed\Desktop\config file.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="C:\Users\Ahmed\Desktop\Configurable Bouncing Shapes.gif">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
 </Project>
