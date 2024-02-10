@@ -164,6 +164,12 @@
     <ClCompile Include="libs\imGui\imgui_widgets.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="C:\Users\Ahmed\Desktop\config file.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="C:\Users\Ahmed\Desktop\Configurable Bouncing Shapes.gif" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
