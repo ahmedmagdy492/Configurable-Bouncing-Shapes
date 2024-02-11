@@ -2,7 +2,7 @@
 
 <p>Is a small demo on using SFML with ImGui in C++</p>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/KnuPi8uJHC4?si=GZjF0lMxVOu8SHoB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+[![Watch the video](https://img.youtube.com/vi/KnuPi8uJHC4/hqdefault.jpg)](https://www.youtube.com/watch?v=KnuPi8uJHC4)
 
 
 <h2>Usage</h2>
