@@ -67,7 +67,7 @@ public:
 		}
 	}
 
-	const std::string GetName() const {
+	const std::string& GetName() const {
 		return name;
 	}
 
@@ -84,20 +84,20 @@ public:
 
 		if (Utils::instanceof<sf::CircleShape>(this->shape)) {
 			sf::CircleShape* circle = (sf::CircleShape*)this->shape;
-			if ((curPos.x + speed.x) <= 0 || (curPos.x + speed.x + circle->getRadius()*2) >= width) {
+			if ((curPos.x + speed.x) <= 0 || (curPos.x + speed.x + circle->getRadius()*2*circle->getScale().x) >= width) {
 				SetSpeed(sf::Vector2f(speed.x * -1, speed.y));
 			}
-			else if ((curPos.y + speed.y) <= 0 || (curPos.y + speed.y + circle->getRadius()*2) >= height) {
+			else if ((curPos.y + speed.y) <= 0 || (curPos.y + speed.y + circle->getRadius()*2*circle->getScale().y) >= height) {
 				SetSpeed(sf::Vector2f(speed.x, speed.y*-1));
 			}
 			circle->setPosition(curPos + speed*0.15f);
 		}
 		else {
 			sf::RectangleShape* rect = (sf::RectangleShape*)this->shape;
-			if ((curPos.x + speed.x) <= 0 || (curPos.x + speed.x + rect->getSize().x) >= width) {
+			if ((curPos.x + speed.x) <= 0 || (curPos.x + speed.x + rect->getSize().x*rect->getScale().x) >= width) {
 				SetSpeed(sf::Vector2f(speed.x * -1, speed.y));
 			}
-			else if ((curPos.y + speed.y) <= 0 || (curPos.y + speed.y + rect->getSize().y) >= height) {
+			else if ((curPos.y + speed.y) <= 0 || (curPos.y + speed.y + rect->getSize().y*rect->getScale().y) >= height) {
 				SetSpeed(sf::Vector2f(speed.x, speed.y * -1));
 			}
 			rect->setPosition(curPos + speed * 0.15f);
