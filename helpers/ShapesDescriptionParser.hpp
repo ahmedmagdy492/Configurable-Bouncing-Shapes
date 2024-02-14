@@ -15,7 +15,7 @@ public:
 		shapes = new std::vector<ShapeModel*>();
 	}
 
-	std::vector<ShapeModel*>* ParseShapeDescription(const std::vector<std::string>& lines) {
+	std::vector<ShapeModel*>* ParseShapeDescription(const ConfigModel& config, const std::vector<std::string>& lines) {
 
 		for (auto& line : lines) {
 			if (!line.empty()) {
@@ -25,7 +25,7 @@ public:
 				if (words->size() > 1) {
 					if ((*words)[0] == "Circle") {
 						if (words->size() == 10) {
-							ShapeModel* shapeModel = new ShapeModel(addedShapes++, "Circle", (*words)[1]);
+							ShapeModel* shapeModel = new ShapeModel(addedShapes++, "Circle", (*words)[1], config);
 
 							if (Utils::ContainsDigitsOnly((*words)[2]) && Utils::ContainsDigitsOnly((*words)[3])) {
 								sf::Vector2f pos(std::stoi((*words)[2]), std::stoi((*words)[3]));
@@ -72,7 +72,7 @@ public:
 					}
 					else if ((*words)[0] == "Rectangle") {
 						if (words->size() == 11) {
-							ShapeModel* shapeModel = new ShapeModel(addedShapes++, "Rectangle", (*words)[1]);
+							ShapeModel* shapeModel = new ShapeModel(addedShapes++, "Rectangle", (*words)[1], config);
 
 							if (Utils::ContainsDigitsOnly((*words)[2]) && Utils::ContainsDigitsOnly((*words)[3])) {
 								sf::Vector2f newPos(std::stoi((*words)[2]), std::stoi((*words)[3]));

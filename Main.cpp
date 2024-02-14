@@ -37,6 +37,7 @@ int main() {
 	ImGui::SFML::Init(window);
 
 	sf::Font font = sf::Font();
+	config.font = &font;
 	if (!font.loadFromFile(config.fontPath)) {
 		std::cout << "Unable to Load Font: " << config.fontPath << std::endl;
 	}
@@ -45,7 +46,7 @@ int main() {
 	std::vector<ShapeModel*>* shapesToDraw = NULL;
 	
 	try {
-		shapesToDraw = shapeDescParser.ParseShapeDescription(lines);
+		shapesToDraw = shapeDescParser.ParseShapeDescription(config, lines);
 	}
 	catch (std::exception& ex) {
 		std::cout << ex.what() << std::endl;
@@ -120,7 +121,7 @@ int main() {
 
 			if (curShape->ShouldDrawShape()) {
 				window.draw(*curShape->GetInternalShape());
-
+				window.draw(curShape->GetText());
 				curShape->Move(config.width, config.height);
 			}
 		}

@@ -14,15 +14,21 @@ private:
 	sf::Vector2f speed;
 	bool drawShape;
 	std::string name;
+	sf::Text text;
 
 public:
-	ShapeModel(long id, const std::string& shapeName, const std::string& friendlyName) : id(id), drawShape(true), name(friendlyName) {
+	ShapeModel(long id, const std::string& shapeName, const std::string& friendlyName, const ConfigModel& config) : id(id), drawShape(true), name(friendlyName) {
 		shape = ShapeFactory::CreateShape(shapeName);
 		if (shape == NULL) {
 			std::stringstream msg;
 			msg << "Shape " << shapeName << " is not supported";
 			throw std::exception(msg.str().c_str());
 		}
+		text.setString(friendlyName);
+		text.setFillColor(config.fontColor);
+		text.setFont(*config.font);
+		text.setCharacterSize(config.fontSize);
+		text.setStyle(sf::Text::Bold);
 	}
 
 	~ShapeModel() {
@@ -84,23 +90,34 @@ public:
 
 		if (Utils::instanceof<sf::CircleShape>(this->shape)) {
 			sf::CircleShape* circle = (sf::CircleShape*)this->shape;
-			if ((curPos.x + speed.x) <= 0 || (curPos.x + speed.x + circle->getRadius()*2*circle->getScale().x) >= width) {
-				SetSpeed(sf::Vector2f(speed.x * -1, speed.y));
+
+			sf::FloatRect boundBox = circle->getGlobalBounds();
+
+			if (boundBox.left <= 0.0f || (boundBox.left + boundBox.width) >= width) {
+				SetSpeed(sf::Vector2f(speed.x*-1, speed.y));
 			}
-			else if ((curPos.y + speed.y) <= 0 || (curPos.y + speed.y + circle->getRadius()*2*circle->getScale().y) >= height) {
-				SetSpeed(sf::Vector2f(speed.x, speed.y*-1));
+			else if (boundBox.top <= 0.0f || (boundBox.top + boundBox.height) >= height) {
+				SetSpeed(sf::Vector2f(speed.x, speed.y * -1));
 			}
-			circle->setPosition(curPos + speed*0.15f);
+			circle->move(speed);
 		}
 		else {
 			sf::RectangleShape* rect = (sf::RectangleShape*)this->shape;
-			if ((curPos.x + speed.x) <= 0 || (curPos.x + speed.x + rect->getSize().x*rect->getScale().x) >= width) {
+			sf::FloatRect boundBox = rect->getGlobalBounds();
+
+			if (boundBox.left <= 0 || (boundBox.left + boundBox.width) >= width) {
 				SetSpeed(sf::Vector2f(speed.x * -1, speed.y));
 			}
-			else if ((curPos.y + speed.y) <= 0 || (curPos.y + speed.y + rect->getSize().y*rect->getScale().y) >= height) {
+			else if (boundBox.top <= 0 || (boundBox.top + boundBox.height) >= height) {
 				SetSpeed(sf::Vector2f(speed.x, speed.y * -1));
 			}
-			rect->setPosition(curPos + speed * 0.15f);
+			rect->move(speed);
+
+			//text.setPosition((rect->getPosition().x+rect->getSize().x- text.getGlobalBounds().width)/2, (rect->getPosition().y + rect->getSize().y- text.getGlobalBounds().height)/2);
 		}
+	}
+
+	const sf::Text GetText() const {
+		return text;
 	}
 };
