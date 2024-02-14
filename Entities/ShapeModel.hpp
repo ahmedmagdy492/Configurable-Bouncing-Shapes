@@ -99,7 +99,9 @@ public:
 			else if (boundBox.top <= 0.0f || (boundBox.top + boundBox.height) >= height) {
 				SetSpeed(sf::Vector2f(speed.x, speed.y * -1));
 			}
-			circle->move(speed);
+			circle->move(speed.x*0.2, speed.y*0.2);
+			text.setPosition(GetPosition());
+			text.move(speed.x * 0.2, speed.y * 0.2);
 		}
 		else {
 			sf::RectangleShape* rect = (sf::RectangleShape*)this->shape;
@@ -111,9 +113,9 @@ public:
 			else if (boundBox.top <= 0 || (boundBox.top + boundBox.height) >= height) {
 				SetSpeed(sf::Vector2f(speed.x, speed.y * -1));
 			}
-			rect->move(speed);
-
-			//text.setPosition((rect->getPosition().x+rect->getSize().x- text.getGlobalBounds().width)/2, (rect->getPosition().y + rect->getSize().y- text.getGlobalBounds().height)/2);
+			rect->move(speed.x*0.2, speed.y*0.2);
+			text.setPosition(GetPosition());
+			text.move(speed.x*0.2, speed.y*0.2);
 		}
 	}
 
